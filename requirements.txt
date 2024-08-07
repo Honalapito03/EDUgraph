@@ -4,3 +4,4 @@ networkx
 streamlit
 pydantic
 tiktoken
+ai71
