@@ -31,27 +31,7 @@ class AI_API(abc.ABC):
         return(output, history)
 
 
-class AI_local(AI_API):
-    def __init__(self) -> None:
-        
-        self.device = torch.device("mps")
-        self.checkpoint = "HuggingFaceTB/SmolLM-1.7B-Instruct"
 
-        self.tokenizer = AutoTokenizer.from_pretrained(self.checkpoint, device_map=self.device)
-        # for multiple GPUs install accelerate and do `model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto")`
-        self.model = AutoModelForCausalLM.from_pretrained(self.checkpoint, device_map=self.device)
-
-
-    def  messenge(self, promt:tuple[str, str], **kwargs) -> tuple[str, str]:
-        messages = self.create_input(promt, kwargs["histroy"] if "history" in kwargs.keys() else [])
-        input_text= self.tokenizer.apply_chat_template(messages, tokenize=False)
-        inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(self.device)
-        outputs = self.model.generate(inputs, max_new_tokens=300, temperature=0.6, top_p=0.92, do_sample=True).to(self.device)
-        
-        out = self.tokenizer.decode(outputs[0])
-        print(out)
-
-        return(self.create_output(out, messages))
     
 
 class AI71_api(AI_API):
