@@ -1,4 +1,4 @@
-pyviz
+pyviz==0.3.1
 numpy
 networkx
 streamlit
