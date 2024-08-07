@@ -1,3 +1,4 @@
 pyviz
 numpy
 networkx
+streamlit
