@@ -3,3 +3,4 @@ numpy
 networkx
 streamlit
 pydantic
+tiktoken
