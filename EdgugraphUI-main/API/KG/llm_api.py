@@ -1,12 +1,8 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
+#from transformers import AutoModelForCausalLM, AutoTokenizer
+#import torch
 import abc
 import ai71
 
-import pathlib
-import textwrap
-
-import google.generativeai as genai
 
 from IPython.display import display
 from IPython.display import Markdown
