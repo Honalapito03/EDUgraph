@@ -43,6 +43,7 @@ def textsplitter(txt:str, l:int, u:int) -> list[str]:
     while(i + l < len(txt)):
         res.append(txt[i : i + l])
         i += l - u
+    res.append(txt[i:])
     return(res)
 
 
