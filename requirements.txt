@@ -1,0 +1,3 @@
+pyviz
+numpy
+networkx
