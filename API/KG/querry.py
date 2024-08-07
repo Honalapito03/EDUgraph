@@ -88,17 +88,18 @@ class EDU_Querry(Querry):
         graph.add_node(node, description= self.graph.nodes[node]["description"])
         
         for nn in self.graph.neighbors(node):
+            p = promts.EDU_Quarry_question_promt.create_promt(graph)
             if ((not (nn in graph.nodes and (node, nn) in graph.edges)) and l - self.graph[node][nn]["weight"] > 0 and
-                len(promts.EDU_Quarry_question_promt.create_promt(graph)) < 1500):
+                len(p[0] + p[1]) < 1500):
                 graph.add_node(nn, description= self.graph.nodes[nn]["description"], weight=1)
                 graph.add_edge(node, nn, description= self.graph[node][nn]["description"], weight=self.graph[node][nn]["weight"])
                 self.strange_dfs(l - self.graph[node][nn]["weight"], graph, nn)
         
     async def get_question_and_answers(self, graph) -> tuple[str, list[str]]:
+        print(len(promts.EDU_Quarry_question_promt.create_promt(graph)))
         r = (await self.llm.messenge(
             promts.EDU_Quarry_question_promt.create_promt(graph)
         ))[0]
-        print(r)
         r = r.split("<QUESTION>")[1]
         q, a_s= r.split("</QUESTION>")[0], r.split("</QUESTION>")[1].split("</ANSWER>")[:3]
         for a in range(len(a_s)):

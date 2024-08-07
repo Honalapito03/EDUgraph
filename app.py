@@ -12,7 +12,10 @@ import json
 
 # App state
 if 'graphs' not in st.session_state:
-    st.session_state.graphs = {}
+    st.session_state.graphs = {
+        "Iliad": nx.adjacency_graph(json.load(open("iliad.json", "r"))),
+        "Odussey": nx.adjacency_graph(json.load(open("odussey.json", "r")))
+    }
 if 'currentgraph' not in st.session_state:
     st.session_state.currentgraph = None
 if 'selected_graphlist' not in st.session_state:
